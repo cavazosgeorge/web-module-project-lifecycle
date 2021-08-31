@@ -65,6 +65,7 @@ componentDidMount() {
       <div>
         <Searchbox 
           fetchUser={this.fetchUser.bind(this)} />
+        <FollowerCard data={this.state} />
       </div>
     )
   }
