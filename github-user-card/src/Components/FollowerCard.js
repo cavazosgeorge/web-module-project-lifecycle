@@ -12,11 +12,11 @@ export default class FollowerCard extends Component {
           // if username found, then...
           return (
             <div className="card">
-              <a href={data.url} target="_blank">
-                <img className="card__avatar" src={data.avatar} />             
+              <a href={data.url} target="">
+                <img className="card__avatar" src={data.avatar} alt="Profile" />             
               </a>
               <h2 className="card__username">
-                <a className="card__link" href={data.url} target="_blank">{data.username}</a></h2>
+                <a className="card__link" href={data.url} target="">{data.username}</a></h2>
               <dl>
                 <dt>Real name</dt>
                 <dd>{data.realName}</dd>

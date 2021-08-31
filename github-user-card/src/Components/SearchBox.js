@@ -2,30 +2,36 @@ import React, { Component } from "react"
 
 
 export default class SearchBox extends Component {
-    render() {
+  state = {
+    username: '',
+  };
+
+  render() {
+    const { username } = this.state;
       return (
-        <form 
-          className="searchbox" 
+        <form
+          className="searchbox"
           onSubmit={this.handleClick.bind(this)}>
-          <input
-            ref="search"
-            className="searchbox__input" 
-            type="text" 
-            placeholder="type username..."/>
-          
-          <input
-            type="submit"
-            className="searchbox__button"
-            value="Search GitHub User" />
+            <input
+            value={username}
+            className="searchbox__input"
+            type="text"
+            onChange={this.setUsername}
+            placeholder="type username..." />
+
+            <input
+                type="submit"
+                className="searchbox__button"
+                value="Search Github User" />
         </form>
-      )
-    }
-    
-    handleClick(e) {
-      e.preventDefault()
-      let username = this.refs.search.getDOMNode().value
-      // sending the username value to parent component to fetch new data from API
-      this.props.fetchUser(username)
-      this.refs.search.getDOMNode().value = ''
-    }
+    );
   }
+
+  setUsername = (event) => this.setState({ username: event.target.value });
+
+  handleClick(e) {
+    e.preventDefault();
+    this.props.fetchUser(this.state.username);
+    this.setState({ username: '' });
+  }
+};

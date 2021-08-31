@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import FollowerCard from './Components/FollowerCard';
-import User from './Components/User';
 import Searchbox from'./Components/SearchBox';
 
 import './App.css';
@@ -46,12 +44,12 @@ fetchApi(url) {
 }
 
 fetchUser(username) {
-  let url = `https://api.github.com/users/${username}`
+  const url = `https://api.github.com/users/${username}`
   this.fetchApi(url)
 }
 
 componentDidMount() {
-  let url = `https://api.github.com/users/${this.state.username}`
+  const url = `https://api.github.com/users/${this.state.username}`
   this.fetchApi(url)
 }
 
