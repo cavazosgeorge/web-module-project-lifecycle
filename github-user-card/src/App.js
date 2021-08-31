@@ -1,25 +1,71 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Axios from 'axios';
+import FollowerCard from './Components/FollowerCard';
+import User from './Components/User';
+import Searchbox from'./Components/SearchBox';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: 'cavazosgeorge',
+      realName: '',
+      avatar: '',
+      location: '',
+      repos: '',
+      followers: '',
+      url: '',
+      notFound: ''
+    }
+  }
+
+// API request function
+
+fetchApi(url) {
+  
+  fetch(url)
+    .then((res) => res.json() )
+    .then((data) => {
+      
+      // Update State with API
+
+      this.setState({
+        username: data.login,
+        realName: data.name,
+        avatar: data.avatar_url,
+        location: data.location,
+        repos: data.public_repos,
+        followers: data.followers,
+        url: data.message
+      })
+    })
+    .catch((err) => console.log('oh no!'))
 }
 
-export default App;
+fetchUser(username) {
+  let url = `https://api.github.com/users/${username}`
+  this.fetchApi(url)
+}
+
+componentDidMount() {
+  let url = `https://api.github.com/users/${this.state.username}`
+  this.fetchApi(url)
+}
+
+
+
+
+
+
+  render() {
+    return (
+      <div>
+        <Searchbox 
+          fetchUser={this.fetchUser.bind(this)} />
+      </div>
+    )
+  }
+}
